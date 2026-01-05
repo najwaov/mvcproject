@@ -1,0 +1,335 @@
+﻿@*@model mvcproject.Models.Jobsearch
+    @{
+        ViewBag.Title = "user_home_pageload";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>New Job Vacancies</h2>
+    <h2>Explore Opportunities: Find Your Dream Job</h2>
+    <br />
+
+    @using (Html.BeginForm("searchjob_click", "userhome", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <td style="width: 25%; padding-right: 10px;">
+                    @Html.TextBoxFor(m => m.insertse.Job_Skills,
+                        new { style = "width: 100%;", placeholder = "Skills" })
+                </td>
+
+                <td style="width: 25%; padding-right: 10px;">
+                    @Html.TextBoxFor(m => m.insertse.Job_Experience,
+                        new { style = "width: 100%;", placeholder = "Experience" })
+                </td>
+
+                <td style="width: 25%; padding-right: 10px;">
+                    @Html.TextBoxFor(m => m.insertse.Job_Location,
+                        new { style = "width: 100%;", placeholder = "Location" })
+                </td>
+                <td style="width: 25%; padding-right: 10px;">
+                    @Html.TextBoxFor(m => m.insertse.job_qualification,
+                        new { style = "width: 100%;", placeholder = "Qualification" })
+                </td>
+
+                <td style="width: 25%; text-align: right;">
+                    <input type="submit"
+                           value="Search"
+                           class="buttons"
+                           style="background-color: navy; color: white; padding: 5px 10px;" />
+                </td>
+            </tr>
+        </table>
+    }
+
+    <br />
+    <table class="table w3-container">
+        <tr>
+            <th>
+                <label>Company</label>
+            </th>
+            <th>
+                <label>Job</label>
+            </th>
+            <th>
+                <label>Description</label>
+            </th>
+            白
+            <th>
+                <label>Experience</label>
+            </th>
+            <th>
+                <label>Skills</label>
+            </th>
+            <th>
+                <label>Pass out year</label>
+            </th>
+            <th>
+                <label>End date</label>
+            </th>
+            <th>
+                <label>Qualification</label>
+            </th>
+            <th>
+                <label>Location</label>
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.selectjob)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_Experience)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_Skills)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.passoutyear)
+                </td>
+                <td>
+                    @item.Job_enddate.ToString("MM/dd/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.job_qualification)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_Location)
+                </td>
+                <td>
+                    @Html.ActionLink(
+                        "Apply",
+                        "Application_pageload",
+                        "userhome",
+                        new { job_id = item.Job_id },
+                        new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+
+
+@*<div>
+        <table id="t01" class="table">
+            <tr>
+                <th>Company Name</th>
+                <th>Company Details</th>
+                <th>Company Location</th>
+                <th>Company Email</th>
+                <th>Company Address</th>
+                <th>Company Phone</th>
+                <th>Job Title</th>
+                <th>Job Description</th>
+                <th>Job Location</th>
+                <th>Experience Required</th>
+                <th>Qualification Required</th>
+                <th>Pass Out Year</th>
+                <th>Date of Posting</th>
+                <th>End Date</th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in ViewBag.jobdetails)
+            {
+                <tr>
+                    <td>@item.company_name</td>
+                    <td>@item.company_desc</td>
+                    <td>@item.location</td>
+                    <td>@item.company_email</td>
+                    <td>@item.comapany_address</td>
+                    <td>@item.company_phone</td>
+                    <td>@item.job_title</td>
+                    <td>@item.job_desc</td>
+                    <td>@item.location</td>
+                    <td>@item.job_experience</td>
+                    <td>@item.job_qualification</td>
+                    <td>@item.pass_out_year</td>
+                    <td>@item.current_date.ToString("dd-MM-yyyy")</td>
+                    <td>@item.end_date.ToString("dd-MM-yyyy")</td>
+                    <td>
+                        @Html.ActionLink(
+                            "Apply",
+                            "Application_pageload",
+                            "userhome",
+                            new { job_id = item.job_id },
+                            new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>*@
+
+@*@if (TempData["msg"] != null)
+    {
+        <script type="text/javascript">
+        alert('@TempData["msg"]');
+        </script>
+    }*@
+@model mvcproject.Models.Jobsearch
+@{
+    ViewBag.Title = "user_home_pageload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f6fa;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 5px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #555;
+        margin-bottom: 25px;
+    }
+
+    /* Search Card */
+    .search-card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+    .search-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 15px;
+    }
+
+        .search-grid input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+    .search-btn {
+        background-color: navy;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        width: 100%;
+    }
+
+        .search-btn:hover {
+            background-color: #001f5f;
+        }
+
+    /* Table Styling */
+    .job-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .job-table th {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .job-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 13px;
+        }
+
+        .job-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    .apply-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 13px;
+    }
+
+        .apply-btn:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+</style>
+
+<h2>New Job Vacancies</h2>
+<p class="subtitle">Explore Opportunities: Find Your Dream Job</p>
+
+<div class="search-card">
+    @using (Html.BeginForm("searchjob_click", "userhome", FormMethod.Post))
+    {
+        <div class="search-grid">
+            @Html.TextBoxFor(m => m.insertse.Job_Skills, new { placeholder = "Skills" })
+            @Html.TextBoxFor(m => m.insertse.Job_Experience, new { placeholder = "Experience" })
+            @Html.TextBoxFor(m => m.insertse.Job_Location, new { placeholder = "Location" })
+            @Html.TextBoxFor(m => m.insertse.job_qualification, new { placeholder = "Qualification" })
+            <input type="submit" value="Search" class="search-btn" />
+        </div>
+    }
+</div>
+
+<table class="job-table">
+    <tr>
+        <th>Company</th>
+        <th>Job</th>
+        <th>Description</th>
+        <th>Experience</th>
+        <th>Skills</th>
+        <th>Pass out year</th>
+        <th>End date</th>
+        <th>Qualification</th>
+        <th>Location</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model.selectjob)
+    {
+        <tr>
+            <td>@item.Company_id</td>
+            <td>@item.Job_Title</td>
+            <td>@item.Job_description</td>
+            <td>@item.Job_Experience</td>
+            <td>@item.Job_Skills</td>
+            <td>@item.passoutyear</td>
+            <td>@item.Job_enddate.ToString("MM/dd/yyyy")</td>
+            <td>@item.job_qualification</td>
+            <td>@item.Job_Location</td>
+            <td>
+                @Html.ActionLink(
+                    "Apply",
+                    "Application_pageload",
+                    "userhome",
+                    new { job_id = item.Job_id },
+                    new { @class = "apply-btn" })
+            </td>
+        </tr>
+    }
+</table>
+
